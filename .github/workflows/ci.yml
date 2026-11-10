@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "ci.yml"
+# Estimated savings: ~2 min/run
+#
 name: CI
 
 description: Lints, tests, and builds on pull requests and pushes to master.
@@ -9,6 +14,10 @@ on:
     branches:
       - master
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   test:
     name: Lint, test, build
